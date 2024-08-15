@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TaskExport;
 use App\Http\Requests\Task\StoreRequest;
 use App\Http\Requests\Task\UpdateRequest;
 use App\Models\Task;
@@ -28,6 +29,13 @@ class TaskController extends Controller
     {
         $keyword = $request->input('search');
 
+        if ($keyword) {
+            $tasks = $this->taskService->searchByTitleOrDescriptionWithPaginate($keyword);
+        } else {
+            $tasks = $this->taskRepository->getAllWithPaginate();
+        }
+
+        return TaskExport::export($tasks, 'tasks.csv');
     }
 
     public function index(Request $request)

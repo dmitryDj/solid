@@ -15,11 +15,12 @@
     <body class="antialiased">
     <form action="{{ route('tasks.index') }}" method="GET">
         <input type="text" name="search" placeholder="Search tasks" value="{{ request('search') }}">
-        <button type="submit">Search</button>
-        <a href="{{ route('tasks.index') }}">Reset</a>
+        <button class="btn btn-primary" type="submit">Search</button>
+        <a class="btn btn-danger" href="{{ route('tasks.index') }}">Reset</a>
     </form>
 
-    <a href="{{ route('tasks.export', ['search' => request('search')]) }}">Export to CSV</a>
+    <a class="btn btn-warning" href="{{ route('tasks.export', ['search' => request('search')]) }}">Export to CSV</a>
+    <a class="btn btn-success" href="{{ route('tasks.create') }}">Create task</a>
 
     <table class="table">
         <thead>

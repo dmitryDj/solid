@@ -17,5 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('tasks', \App\Http\Controllers\TaskController::class);
 Route::get('tasks/export', [\App\Http\Controllers\TaskController::class, 'export'])->name('tasks.export');
+
+Route::resource('tasks', \App\Http\Controllers\TaskController::class);
