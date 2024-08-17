@@ -18,5 +18,16 @@ Route::get('/', function () {
 });
 
 Route::get('tasks/export', [\App\Http\Controllers\TaskController::class, 'export'])->name('tasks.export');
-
 Route::resource('tasks', \App\Http\Controllers\TaskController::class);
+
+Route::prefix('shape')
+    ->name('shape.')
+    ->group(function () {
+        Route::get('/area', [\App\Http\Controllers\ShapeController::class, 'getArea'])->name('area');
+        Route::get('/perimeter', [\App\Http\Controllers\ShapeController::class, 'getPerimeter'])->name('perimeter');
+    });
+
+Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifications/send', [\App\Http\Controllers\NotificationController::class, 'sendNotification'])->name('notifications.send');
+
+Route::resource('messages', \App\Http\Controllers\MessageController::class);

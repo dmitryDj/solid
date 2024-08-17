@@ -9,6 +9,7 @@ use App\Models\Task;
 use App\Repository\TaskRepository;
 use App\Service\TaskService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TaskController extends Controller
 {
@@ -30,12 +31,12 @@ class TaskController extends Controller
         $keyword = $request->input('search');
 
         if ($keyword) {
-            $tasks = $this->taskService->searchByTitleOrDescriptionWithPaginate($keyword);
+            $tasks = $this->taskService->getSearchByTitleOrDescription($keyword);
         } else {
-            $tasks = $this->taskRepository->getAllWithPaginate();
+            $tasks = Task::all();
         }
 
-        return TaskExport::export($tasks, 'tasks.csv');
+        return Excel::download(new TaskExport($tasks), 'tasks.csv');
     }
 
     public function index(Request $request)

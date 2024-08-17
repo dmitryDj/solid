@@ -12,4 +12,11 @@ class TaskService
             ->orWhere('description', 'like', "%{$keyword}%")
             ->paginate($perPage);
     }
+
+    public function getSearchByTitleOrDescription(string $keyword)
+    {
+        return Task::where('title', 'like', "%{$keyword}%")
+            ->orWhere('description', 'like', "%{$keyword}%")
+            ->get();
+    }
 }
