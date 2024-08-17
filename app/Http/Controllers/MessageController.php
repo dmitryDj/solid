@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Message\ImageMessage;
 use App\Models\Message\Message;
-use App\Models\Message\TextMessage;
-use App\Models\Message\VideoMessage;
+use App\Service\MessageService;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
+    protected MessageService $messageService;
+
+    public function __construct(MessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
+
     public function index()
     {
         $messages = Message::paginate(15);
@@ -26,21 +31,7 @@ class MessageController extends Controller
     {
         $data = $request->all();
 
-        $message = new TextMessage();
-        $text = $message->trimText($data['text']);
-        $data['text'] = $message->capitalizeText($text);
-
-        if (isset($data['image_url'])) {
-            $message = new ImageMessage();
-            $data['image_url'] = $message->setSize($data['image_url']);
-            $message->create($data);
-        } elseif (isset($data['video_url'])) {
-            $message = new VideoMessage();
-            $data['video_url'] = $message->setVideoHost($data['video_url']);
-            $message->create($data);
-        } else {
-            $message->create($data);
-        }
+        $this->messageService->create($data);
 
         return to_route('messages.index');
     }
@@ -52,23 +43,9 @@ class MessageController extends Controller
 
     public function update(Request $request, Message $message)
     {
-        $data = $request->input();
+        $data = $request->all();
 
-        $textMessage = new TextMessage();
-        $text = $textMessage->trimText($data['text']);
-        $data['text'] = $textMessage->capitalizeText($text);
-
-        if (isset($data['image_url'])) {
-            $imageMessage = new ImageMessage();
-            $data['image_url'] = $imageMessage->setSize($data['image_url']);
-        }
-
-        if (isset($data['video_url'])) {
-            $videoMessage = new VideoMessage();
-            $data['video_url'] = $videoMessage->setVideoHost($data['video_url']);
-        }
-
-        $message->update($data);
+        $this->messageService->update($message, $data);
 
         return to_route('messages.index');
     }
