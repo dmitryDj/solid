@@ -4,6 +4,6 @@ namespace App\Models\Message\Interfaces;
 
 interface TextMessageInterface
 {
-    public function trimText(): string;
-    public function capitalizeText(): string;
+    public function trimText(string $str): string;
+    public function capitalizeText(string $str): string;
 }

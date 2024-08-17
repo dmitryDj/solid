@@ -14,16 +14,17 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body class="antialiased">
-<form action="{{ route('messages.store') }}" method="POST">
+<form action="{{ route('messages.update', $message) }}" method="POST">
     @csrf
+    @method('PUT')
     <label for="text">Text</label>
-    <input id="text" name="text">
+    <input id="text" name="text" value="{{ $message->text }}">
 
     <label for="image_url">Image url</label>
-    <input id="image_url" name="image_url">
+    <input id="image_url" name="image_url" value="{{ $message->image_url }}">
 
     <label for="video_url">Video url</label>
-    <input id="video_url" name="video_url">
+    <input id="video_url" name="video_url" value="{{ $message->video_url }}">
 
     <button class="btn btn-success" type="submit">Save</button>
 </form>

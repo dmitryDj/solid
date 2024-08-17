@@ -26,26 +26,49 @@ class MessageController extends Controller
     {
         $data = $request->all();
 
-        // Message вместо if else
+        $message = new TextMessage();
+        $text = $message->trimText($data['text']);
+        $data['text'] = $message->capitalizeText($text);
+
         if (isset($data['image_url'])) {
-            $message = ImageMessage::create($data);
+            $message = new ImageMessage();
+            $data['image_url'] = $message->setSize($data['image_url']);
+            $message->create($data);
         } elseif (isset($data['video_url'])) {
-            $message = VideoMessage::create($data);
+            $message = new VideoMessage();
+            $data['video_url'] = $message->setVideoHost($data['video_url']);
+            $message->create($data);
         } else {
-            $message = TextMessage::create($data);
+            $message->create($data);
         }
 
         return to_route('messages.index');
     }
 
-    public function show(Message $message)
+    public function edit(Message $message)
     {
-        return view('messages.show', compact('message'));
+        return view('messages.edit', compact('message'));
     }
 
-    public function update(Request $request, $message)
+    public function update(Request $request, Message $message)
     {
-        $data = $request->all();
+        $data = $request->input();
+
+        $textMessage = new TextMessage();
+        $text = $textMessage->trimText($data['text']);
+        $data['text'] = $textMessage->capitalizeText($text);
+
+        if (isset($data['image_url'])) {
+            $imageMessage = new ImageMessage();
+            $data['image_url'] = $imageMessage->setSize($data['image_url']);
+        }
+
+        if (isset($data['video_url'])) {
+            $videoMessage = new VideoMessage();
+            $data['video_url'] = $videoMessage->setVideoHost($data['video_url']);
+        }
+
+        $message->update($data);
 
         return to_route('messages.index');
     }

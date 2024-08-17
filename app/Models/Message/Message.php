@@ -9,20 +9,24 @@ class Message extends Model implements TextMessageInterface
 {
     protected $table = 'messages';
 
+    const TYPE_TEXT = 'text';
+    const TYPE_IMAGE = 'image';
+    const TYPE_VIDEO = 'video';
+
     protected $fillable = [
         'text',
         'image_url',
         'video_url',
     ];
 
-    public function trimText(): string
+    public function trimText(string $str): string
     {
-        return trim($this->text);
+        return trim($str);
     }
 
-    public function capitalizeText(): string
+    public function capitalizeText(string $str): string
     {
-        return strtoupper($this->text);
+        return strtoupper($str);
     }
 
     public function getTypeMessage(): string

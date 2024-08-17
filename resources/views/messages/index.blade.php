@@ -30,17 +30,36 @@
     <tbody>
     @foreach($messages as $message)
         <tr>
-            <th scope="row">{{ $message->id }}</th>
-            <th scope="row">{{ $message->getTypeMessage() }}</th>
-            <th scope="row">{{ $message->text }}</th>
-            <td>{{ $message->image_url }}</td>
-            <td>{{ $message->video_url }}</td>
+            <th scope="row">
+                {{ $message->id }}
+            </th>
+            <th scope="row">
+                {{ $message->getTypeMessage() }}
+            </th>
+            <th scope="row">
+                {{ $message->text }}
+            </th>
+            <td>
+                @if($message->getTypeMessage() == \App\Models\Message\Message::TYPE_IMAGE)
+                    <a href="{{ $message->image_url }}" class="link" target="_blank">
+                        {{ $message->image_url }}
+                    </a>
+                @endif
+            </td>
+            <td>
+                @if($message->getTypeMessage() == \App\Models\Message\Message::TYPE_VIDEO)
+                    <a href="{{ $message->video_url }}" class="link" target="_blank">
+                        {{ $message->video_url }}
+                    </a>
+                @endif
+            </td>
             <td>
                 <form action="{{ route('messages.destroy', $message) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
+                <a class="btn btn-warning" href="{{ route('messages.edit', $message) }}">Edit</a>
             </td>
         </tr>
     @endforeach

@@ -4,5 +4,5 @@ namespace App\Models\Message\Interfaces;
 
 interface ImageMessageInterface
 {
-    public function setPath();
+    public function setSize(string $size): string;
 }

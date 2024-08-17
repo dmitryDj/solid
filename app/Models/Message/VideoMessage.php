@@ -8,8 +8,8 @@ class VideoMessage extends Message implements VideoMessageInterface
 {
     const VIDEO_HOST = 'https://www.youtube.com/';
 
-    public function setVideoHost()
+    public function setVideoHost(string $videoUrl): string
     {
-        self::VIDEO_HOST . $this->video_url;
+        return self::VIDEO_HOST . $videoUrl;
     }
 }

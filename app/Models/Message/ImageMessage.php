@@ -8,8 +8,8 @@ class ImageMessage extends Message implements ImageMessageInterface
 {
     const PLACEHOLDER_URL = 'https://placehold.co/';
 
-    public function setPath()
+    public function setSize(string $size): string
     {
-        self::PLACEHOLDER_URL . $this->image_url;
+        return self::PLACEHOLDER_URL . $size;
     }
 }
