@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product\PhysicalProduct;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,22 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $physicalProductData = [
+            'name' => 'Физические товар 1',
+            'description' => 'Описание физического товара',
+            'price' => 25,
+            'weight' => 12,
+        ];
+
+        $digitalProductData = [
+            'name' => 'Цифровой товар 1',
+            'description' => 'Описание цифрового товара',
+            'price' => 25,
+            'link' => 'https://some-link.com',
+        ];
+
+//        $physicalProduct = new Product();
+
 
         return to_route('products.index');
     }

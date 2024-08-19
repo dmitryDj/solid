@@ -2,10 +2,17 @@
 
 namespace App\Models\Product;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class PhysicalProduct extends Model
+class PhysicalProduct extends Product
 {
-    use HasFactory;
+
+    public function getType(): string
+    {
+        return 'physical';
+    }
+
+    public function getAdditionalAttributes(): array
+    {
+        return ['weight'];
+    }
 }

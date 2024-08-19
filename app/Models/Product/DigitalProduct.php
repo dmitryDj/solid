@@ -2,10 +2,17 @@
 
 namespace App\Models\Product;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class DigitalProduct extends Model
+class DigitalProduct extends Product
 {
-    use HasFactory;
+
+    public function getType(): string
+    {
+        return 'digital';
+    }
+
+    public function getAdditionalAttributes(): array
+    {
+        return ['download_link'];
+    }
 }

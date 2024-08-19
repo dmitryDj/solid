@@ -2,16 +2,28 @@
 
 namespace App\Models\Product;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Product\Interfaces\ProductTypeInterface;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Product extends Model
+abstract class Product extends Model implements ProductTypeInterface
 {
-    use HasFactory;
+    protected Model $product;
+
+    public function __construct(Model $product, array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->product = $product;
+    }
 
     protected $fillable = [
         'title',
         'description',
         'price',
+        'weight',
+        'download_link'
     ];
+
+    abstract public function getType(): string;
+
+    abstract public function getAdditionalAttributes(): array;
 }
