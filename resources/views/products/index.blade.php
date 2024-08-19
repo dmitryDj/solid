@@ -26,7 +26,7 @@
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Price</th>
-        <th scope="col">Type</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -43,9 +43,6 @@
             </th>
             <th scope="row">
                 {{ $product->price }}
-            </th>
-            <th scope="row">
-
             </th>
             <td>
                 <form action="{{ route('products.destroy', $product) }}" method="POST">

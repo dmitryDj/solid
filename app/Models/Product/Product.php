@@ -2,10 +2,7 @@
 
 namespace App\Models\Product;
 
-use App\Models\Product\Interfaces\ProductTypeInterface;
-use Illuminate\Database\Eloquent\Model;
-
-class Product extends Model implements ProductTypeInterface
+class Product extends AbstractProduct
 {
     protected $fillable = [
         'title',

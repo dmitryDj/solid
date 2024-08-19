@@ -3,8 +3,13 @@
 namespace App\Models\Product;
 
 
-class DigitalProduct extends Product
+class DigitalProduct extends AbstractProduct
 {
+
+    protected $fillable = [
+        'product_id',
+        'link'
+    ];
 
     public function getType(): string
     {
@@ -13,6 +18,6 @@ class DigitalProduct extends Product
 
     public function getAdditionalAttributes(): array
     {
-        return ['download_link'];
+        return ['link'];
     }
 }

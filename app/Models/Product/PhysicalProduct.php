@@ -3,8 +3,13 @@
 namespace App\Models\Product;
 
 
-class PhysicalProduct extends Product
+class PhysicalProduct extends AbstractProduct
 {
+
+    protected $fillable = [
+        'product_id',
+        'weight'
+    ];
 
     public function getType(): string
     {
