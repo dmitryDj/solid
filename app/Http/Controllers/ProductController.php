@@ -13,44 +13,45 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('product.index', compact('products'));
+        return view('products.index', compact('products'));
     }
 
     public function create()
     {
-        return view('product.create');
+        return view('products.create');
     }
 
     public function store(Request $request)
     {
         $physicalProductData = [
-            'name' => 'Физические товар 1',
+            'title' => 'Физические товар 1',
             'description' => 'Описание физического товара',
             'price' => 25,
             'weight' => 12,
         ];
 
         $digitalProductData = [
-            'name' => 'Цифровой товар 1',
+            'title' => 'Цифровой товар 1',
             'description' => 'Описание цифрового товара',
             'price' => 25,
             'link' => 'https://some-link.com',
         ];
 
-//        $physicalProduct = new Product();
-
+        $product = new Product();
+        $product->create($physicalProductData);
+        dd($product->getType());
 
         return to_route('products.index');
     }
 
     public function show(Product $product)
     {
-        return view('product.show', compact('product'));
+        return view('products.show', compact('product'));
     }
 
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        return view('products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)

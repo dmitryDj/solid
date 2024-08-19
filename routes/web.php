@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::get('tasks/export', [\App\Http\Controllers\TaskController::class, 'export'])->name('tasks.export');
 Route::resource('tasks', \App\Http\Controllers\TaskController::class);
 
+Route::resource('products', \App\Http\Controllers\ProductController::class);
+
 Route::prefix('shape')
     ->name('shape.')
     ->group(function () {
