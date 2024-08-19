@@ -19,7 +19,7 @@ class ShapeController extends Controller
 //        return 'Площадь круга - ' . $circle->calculateArea();
     }
 
-    public function getPerimeter()
+    public function getPerimeter(): string
     {
         $rectangle = new Rectangle(10, 5);
         $square = new Square(5);
