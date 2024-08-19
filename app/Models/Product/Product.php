@@ -10,11 +10,6 @@ class Product extends AbstractProduct
         'price',
     ];
 
-    public function getType(): string
-    {
-        return 'product';
-    }
-
     public function getAdditionalAttributes(): array
     {
         return [];

@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Product\DigitalProduct;
 use App\Models\Product\PhysicalProduct;
 use App\Models\Product\Product;
+use App\Service\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected ProductService $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
 
     public function index()
     {
@@ -38,19 +45,15 @@ class ProductController extends Controller
             'link' => 'https://some-link.com',
         ];
 
-        $product = Product::create($physicalProductData);
-        $productType = PhysicalProduct::create([
-            'product_id' => $product->id,
-            'weight' => $physicalProductData['weight'],
-        ]);
+//        $product = Product::create($physicalProductData);
+//        $physicalProductData['product_id'] = $product->id;
+//        $typeProduct = $this->productService->createProduct(new PhysicalProduct(), $physicalProductData);
 
-//        $product = Product::create($digitalProductData);
-//        $productType = DigitalProduct::create([
-//            'product_id' => $product->id,
-//            'link' => $digitalProductData['link'],
-//        ]);
+        $product = Product::create($digitalProductData);
+        $digitalProductData['product_id'] = $product->id;
+        $typeProduct = $this->productService->createProduct(new DigitalProduct(), $digitalProductData);
 
-        dd($productType->getType(), $productType->getAdditionalAttributes());
+        dd($typeProduct->getAdditionalAttributes());
 
         return to_route('products.index');
     }
@@ -65,10 +68,8 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        $product->update($request->all());
-
         return to_route('products.index');
     }
 

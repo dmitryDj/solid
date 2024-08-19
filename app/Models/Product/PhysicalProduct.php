@@ -11,11 +11,6 @@ class PhysicalProduct extends AbstractProduct
         'weight'
     ];
 
-    public function getType(): string
-    {
-        return 'physical';
-    }
-
     public function getAdditionalAttributes(): array
     {
         return ['weight'];

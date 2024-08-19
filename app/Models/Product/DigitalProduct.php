@@ -11,11 +11,6 @@ class DigitalProduct extends AbstractProduct
         'link'
     ];
 
-    public function getType(): string
-    {
-        return 'digital';
-    }
-
     public function getAdditionalAttributes(): array
     {
         return ['link'];

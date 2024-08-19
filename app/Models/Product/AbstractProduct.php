@@ -12,7 +12,5 @@ abstract class AbstractProduct extends Model
         'price',
     ];
 
-    abstract public function getType();
-
     abstract public function getAdditionalAttributes();
 }
